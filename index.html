@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            align-items: center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        #text{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Convierte audio a texto</h1>
+
+        <div>Una vez que se otorga el permiso del micrófono, el texto se muestra aquí: <span id="text"></span></div>
+    </div>
+
+    <script>
+        const recognition = new webkitSpeechRecognition()
+        recognition.lang = 'es-ES'
+        recognition.continuous = true
+        recognition.onresult = event => {
+            for (const result of event.results) {
+                document.getElementById("text").innerHTML = result[0].transcript
+            }
+        }
+        recognition.start()
+    </script>
+</body>
+</html>
